@@ -1,52 +1,21 @@
-import React, { useState } from "react";
-import axios from "axios";
-import {
-  Card,
-  CardImg,
-  CardTitle,
-  CardDeck,
-  CardSubtitle,
-  CardBody,
-} from "reactstrap";
-//import './Card.css';
+import React from "react";
 
-function Followers(props) {
-  const [follower, setFollower] = useState([]);
+export default class Followers extends React.Component {
+  render() {
+    
+    return (
+      <div>
 
-  const handleFollower = (e) => {
-    e.preventDefault();
-    axios
-      .get(`https://api.github.com/users/valerievazq/followers`)
-      .then((res) => {
-        setFollower(res.data);
-        console.log("Followers ", follower);
-      })
-
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
-  return (
-    <div>
-      <button onClick={handleFollower}>Followers</button>
-      {console.log("followers", follower)}
-      {follower.map((item) => (
-        <CardDeck>
-          <Card>
-            <CardImg
-              src={item.avatar_url}
-              alt="Card image cap"
-            />
-            <CardBody>
-              <CardTitle>{item.login}</CardTitle>
-              <CardSubtitle>{item.location}</CardSubtitle>
-            </CardBody>
-          </Card>
-        </CardDeck>
-      ))}
-    </div>
-  );
+        {this.props.followersData.map((data) => (
+          <div className="card2">
+            <img width="150px" src={data.avatar_url} alt='avatar pic'/>
+            <div className="data2">
+              <p className="login2">Name: {data.login}</p>
+              <p>URL: {data.html_url}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 }
-
-export default Followers;
